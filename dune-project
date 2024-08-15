@@ -20,6 +20,11 @@
  (depends
   (ocaml
    (>= 5.0))
-  dune)
+  dune
+  tgbot_api
+  yojson
+  ppx_deriving_yojson
+  eio_main
+  cohttp-eio)
  (tags
   (telegram framework)))

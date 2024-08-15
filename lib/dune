@@ -1,2 +1,3 @@
 (library
- (public_name tgbot))
+ (public_name tgbot)
+ (libraries bot_api))

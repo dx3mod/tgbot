@@ -11,6 +11,11 @@ bug-reports: "https://github.com/dx3mod/tgbot/issues"
 depends: [
   "ocaml" {>= "5.0"}
   "dune" {>= "3.16"}
+  "tgbot_api"
+  "yojson"
+  "ppx_deriving_yojson"
+  "eio_main"
+  "cohttp-eio"
   "odoc" {with-doc}
 ]
 build: [
@@ -28,3 +33,4 @@ build: [
   ]
 ]
 dev-repo: "git+https://github.com/dx3mod/tgbot.git"
+available: arch != "arm32" & arch != "x86_32"

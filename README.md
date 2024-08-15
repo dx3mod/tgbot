@@ -1,6 +1,9 @@
 # TgBot
 
-A modern framework for [Telegram Bot API](https://core.telegram.org/bots/api) written in multicore OCaml.
+A modern framework for [Telegram Bot API](https://core.telegram.org/bots/api) written in multicore OCaml for more modern age.
+
+> [!WARNING]
+> The library is still being built and not ready to use yet!
 
 #### Features
 
@@ -10,6 +13,9 @@ A modern framework for [Telegram Bot API](https://core.telegram.org/bots/api) wr
 - Thoughtful documentation with examples
 
 ## Installation
+
+> [!IMPORTANT]
+> Only 64-bit systems are supported.
 
 ...
 
@@ -22,18 +28,18 @@ A modern framework for [Telegram Bot API](https://core.telegram.org/bots/api) wr
 ### Echo bot
 
 ```ocaml
-let echo_text ctx =
-  ctx#answer ctx.message.text
-
-let echo_bot ~token =
+let echo_bot token =
   let open Tgbot.Bot in
-  bot ~token
-  |> on F.text echo_text
+
+  let echo_text ctx =
+    ctx#answer @@ Printf.sprintf "echo: %s" ctx.message.text
+  in
+
+  bot ~token [ `OnText echo_text ]
 
 let () =
-  let token = Sys.getenv "TOKEN" in
   let pool = Domainslib.Task.setup_pool ~num_domains:2 () in
-  Tgbot.run_polling echo_bot ~pool ~token
+  Tgbot.run_polling ~pool @@ echo_bot (Sys.getenv "TOKEN")
 ```
 
 ## Contribution
