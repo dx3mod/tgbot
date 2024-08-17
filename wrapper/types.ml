@@ -18,6 +18,15 @@ module User = struct
 end
 
 module Chat = struct
+  type kind = Private | Group | SuperGroup | Channel [@@deriving show]
+
+  let kind_of_yojson = function
+    | `String "private" -> Ok Private
+    | `String "group" -> Ok Group
+    | `String "supergroup" -> Ok SuperGroup
+    | `String "channel" -> Ok Channel
+    | _ -> Error "Types.Chat.kind"
+
   type t = {
     id : int;
     kind : kind; [@key "type"]
@@ -27,12 +36,6 @@ module Chat = struct
     last_name : string option; [@default None]
     all_members_are_administrators : bool; [@default false]
   }
-
-  and kind =
-    | Private [@name "private"]
-    | Group [@name "group"]
-    | SuperGroup [@name "supergroup"]
-    | Channel [@name "channel"]
   [@@deriving of_yojson, show]
 end
 
@@ -123,4 +126,8 @@ module Update = struct
 
         { update_id = raw.update_id; value })
       (raw_of_yojson json)
+end
+
+module Updates = struct
+  type t = Update.t list [@@deriving of_yojson, show]
 end
