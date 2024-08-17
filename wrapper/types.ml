@@ -36,22 +36,74 @@ module Chat = struct
   [@@deriving of_yojson, show]
 end
 
-module Message = struct
-  type t = {
-    message_id : int;
-    from : User.t option; [@default None]
-    date : int;
-    chat : Chat.t;
-    forward_from : User.t option; [@default None]
-    forward_date : int option; [@default None]
-    reply_to_message : t option; [@default None]
-    text : string option; [@default None]
-    caption : string option; [@default None]
-  }
-  [@@deriving of_yojson { strict = false }, show]
+module Location = struct
+  type t = { longitude : float; latitude : float } [@@deriving of_yojson, show]
 end
 
 module Update = struct
-  type t = { update_id : int; message : unit (* ... *) }
+  module Message = struct
+    type t = {
+      message_id : int;
+      from : User.t option; [@default None]
+      date : int;
+      chat : Chat.t;
+      forward_from : User.t option; [@default None]
+      forward_date : int option; [@default None]
+      reply_to_message : t option; [@default None]
+      text : string option; [@default None]
+      caption : string option; [@default None]
+    }
+    [@@deriving of_yojson { strict = false }, show]
+    (* TODO: implement all fields for message type  *)
+  end
+
+  module InlineQuery = struct
+    type t = {
+      id : string;
+      from : User.t;
+      location : Location.t option; [@default None]
+      query : string;
+      offset : string;
+    }
+    [@@deriving of_yojson, show]
+  end
+
+  module ChosenInlineResult = struct
+    type t = {
+      result_id : string;
+      from : User.t;
+      location : Location.t option; [@default None]
+      inline_message_id : string option; [@default None]
+      query : string;
+    }
+    [@@deriving of_yojson, show]
+  end
+
+  module CallbackQuery = struct
+    type t = {
+      id : string;
+      from : User.t;
+      message : Message.t option; [@default None]
+      inline_message_id : string option; [@default None]
+      data : string;
+    }
+    [@@deriving of_yojson, show]
+  end
+
+  type raw = {
+    update_id : int;
+    message : Message.t option; [@default None]
+    inline_query : InlineQuery.t option; [@default None]
+    chosen_inline_result : ChosenInlineResult.t option; [@default None]
+    callback_query : CallbackQuery.t option; [@default None]
+  }
   [@@deriving of_yojson, show]
+
+  and t = { update_id : int; value : value }
+
+  and value =
+    | Message of Message.t
+    | InlineQuery of InlineQuery.t
+    | ChosenInlineResult of ChosenInlineResult.t
+    | CallbackQuery of CallbackQuery.t
 end

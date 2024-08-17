@@ -14,7 +14,7 @@ let send_request ~decoder ?(max_size = 100_000) t uri =
   let resp, body = Client.post ~sw t.client (uri t) in
   match resp.status with
   | `OK ->
-      (* maybe write own stream json decoder? *)
+      (* TODO: maybe write own stream json decoder? *)
       Eio.Buf_read.(parse_exn take_all) body ~max_size
       |> Yojson.Safe.from_string |> Response.of_yojson decoder
   | _ -> failwith "not okay"
