@@ -25,22 +25,7 @@ A modern framework for [Telegram Bot API](https://core.telegram.org/bots/api) wr
 
 ## Usage
 
-### Echo bot
-
-```ocaml
-let echo_bot token =
-  let open Tgbot.Bot in
-
-  let echo_text ctx =
-    ctx#answer @@ Printf.sprintf "echo: %s" ctx.message.text
-  in
-
-  bot ~token [ `OnText echo_text ]
-
-let () =
-  let pool = Domainslib.Task.setup_pool ~num_domains:2 () in
-  Tgbot.run_polling ~pool @@ echo_bot (Sys.getenv "TOKEN")
-```
+...
 
 ## Contribution
 
