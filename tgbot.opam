@@ -13,8 +13,9 @@ depends: [
   "dune" {>= "3.16"}
   "tgbot_api"
   "yojson"
+  "ppx_deriving"
   "ppx_deriving_yojson"
-  "eio_main"
+  "eio"
   "cohttp-eio"
   "odoc" {with-doc}
 ]

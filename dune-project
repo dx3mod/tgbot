@@ -23,8 +23,9 @@
   dune
   tgbot_api
   yojson
+  ppx_deriving
   ppx_deriving_yojson
-  eio_main
+  eio
   cohttp-eio)
  (tags
   (telegram framework)))
