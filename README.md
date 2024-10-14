@@ -1,22 +1,13 @@
 # TgBot
 
 A modern framework for [Telegram Bot API](https://core.telegram.org/bots/api) written in multicore OCaml for more modern age.
+Built on [Eio] and [Cohttp].
 
 > [!WARNING]
 > The library is still being built and not ready to use yet!
 
-<!-- #### Features
-
-- Enough completed API
-- Batteries-included (middlewares, sessions, etc) -->
-<!-- - Thoughtful documentation with examples -->
-
-## Installation
-
-> [!IMPORTANT]
-> Only 64-bit systems are supported.
-
-...
+<!-- > [!IMPORTANT]
+> Only 64-bit systems are supported. -->
 
 ## Usage
 
@@ -25,3 +16,7 @@ A modern framework for [Telegram Bot API](https://core.telegram.org/bots/api) wr
 ## Contribution
 
 Feel free to create issues and PRs.
+
+
+[Eio]: https://github.com/ocaml-multicore/eio
+[Cohttp]: https://github.com/mirage/ocaml-cohttp

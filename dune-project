@@ -26,6 +26,9 @@
   ppx_deriving
   ppx_deriving_yojson
   eio
-  cohttp-eio)
+  cohttp-eio
+  tls-eio
+  ca-certs
+  mirage-crypto-rng-eio)
  (tags
-  (telegram framework)))
+  (telegram network)))

@@ -5,7 +5,7 @@ description: "A modern framework for Telegram Bot API"
 maintainer: ["Mikhail Lopatin <dx3mod@bk.ru>"]
 authors: ["Mikhail Lopatin <dx3mod@bk.ru>"]
 license: "MIT"
-tags: ["telegram" "framework"]
+tags: ["telegram" "network"]
 homepage: "https://github.com/dx3mod/tgbot"
 bug-reports: "https://github.com/dx3mod/tgbot/issues"
 depends: [
@@ -17,6 +17,9 @@ depends: [
   "ppx_deriving_yojson"
   "eio"
   "cohttp-eio"
+  "tls-eio"
+  "ca-certs"
+  "mirage-crypto-rng-eio"
   "odoc" {with-doc}
 ]
 build: [

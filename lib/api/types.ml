@@ -59,6 +59,11 @@ module Message = struct
   (* TODO: implement all fields for message type  *)
 end
 
+module Light_message = struct
+  type t = { message_id : int; date : int }
+  [@@deriving of_yojson { strict = false }, show]
+end
+
 module InlineQuery = struct
   type t = {
     id : string;

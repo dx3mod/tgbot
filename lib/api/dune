@@ -1,5 +1,5 @@
 (library
- (name bot_api)
+ (name tg_bot_api)
  (package tgbot)
  (libraries yojson ppx_deriving_yojson.runtime eio cohttp-eio)
  (preprocess
