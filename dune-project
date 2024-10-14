@@ -21,7 +21,6 @@
   (ocaml
    (>= 5.0))
   dune
-  tgbot_api
   yojson
   ppx_deriving
   ppx_deriving_yojson

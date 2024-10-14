@@ -11,7 +11,6 @@ bug-reports: "https://github.com/dx3mod/tgbot/issues"
 depends: [
   "ocaml" {>= "5.0"}
   "dune" {>= "3.16"}
-  "tgbot_api"
   "yojson"
   "ppx_deriving"
   "ppx_deriving_yojson"
