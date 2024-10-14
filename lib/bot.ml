@@ -6,7 +6,7 @@ module type S = sig
   val get_updates :
     ?max_size:int -> ?timeout:int -> ?offset:int -> unit -> Updates.t
 
-  val send_message : chat_id:int -> text:string -> Light_message.t
+  val send_message : chat_id:int -> string -> Light_message.t
 end
 
 module Make (E : Tg_bot_api.Env) = struct
@@ -20,7 +20,7 @@ module Make (E : Tg_bot_api.Env) = struct
     Api.send_request ~max_size ~decoder:Updates.of_yojson
     @@ Api.Methods.get_updates ~timeout ~offset ()
 
-  let send_message ~chat_id ~text =
+  let send_message ~chat_id text =
     Api.send_request
       ~max_size:(1000 + String.length text)
       ~decoder:Light_message.of_yojson

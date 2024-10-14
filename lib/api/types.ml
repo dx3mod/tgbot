@@ -52,7 +52,7 @@ module Message = struct
     forward_from : User.t option; [@default None]
     forward_date : int option; [@default None]
     reply_to_message : t option; [@default None]
-    text : string option; [@default None]
+    text : string; [@default ""]
     caption : string option; [@default None]
   }
   [@@deriving of_yojson { strict = false }, show]
