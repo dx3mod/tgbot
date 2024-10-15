@@ -1,0 +1,3 @@
+(executables
+ (names echobot getme)
+ (libraries tgbot eio_main))

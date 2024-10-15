@@ -11,6 +11,8 @@ built on [Eio] & [Cohttp] libraries.
 
 ## Usage
 
+See [examples](./examples/).
+
 ### Echo bot example
 
 ```ocaml
@@ -41,6 +43,10 @@ let () =
   (* Run an infinite loop to process incoming updates using the long polling method. *)
   Tgbot.Long_polling.run (module Bot) handler
 
+```
+
+```
+$ dune exec ./examples/echobot.exe
 ```
 
 ## Contribution

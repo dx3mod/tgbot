@@ -1,3 +1,0 @@
-(executable
- (name echobot)
- (libraries tgbot eio_main))
