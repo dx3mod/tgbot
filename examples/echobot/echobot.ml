@@ -1,12 +1,24 @@
-open Tgbot.Api.Types
+let token = Sys.getenv "TOKEN"
 
-let echo (module Bot : Tgbot.Bot.S) (message : Message.t) =
-  Bot.send_message ~chat_id:message.chat.id message.text
+(* Your dispatcher for handling incoming updates. Has TgBot.Dispatcher.S signature. *)
+module Dispr (Bot : Tgbot.Bot.S) = struct
+  open Tgbot.Api.Types
+  include Tgbot.Dispatcher.Default
+
+  let on_message (msg : Message.t) =
+    Bot.send_message ~chat_id:msg.chat.id msg.text |> ignore
+end
 
 let () =
+  (* Eio runtime with TLS support. *)
   Eio_main.run @@ fun env ->
   Mirage_crypto_rng_eio.run (module Mirage_crypto_rng.Fortuna) env @@ fun () ->
-  let (module Bot) = Tgbot.make_bot ~net:env#net ~token:(Sys.getenv "TOKEN") in
+  (* Make client for your bot. *)
+  let (module Bot) = Tgbot.make_bot ~net:env#net ~token in
 
-  Tgbot.Long_polling.run (module Bot)
-  @@ Tgbot.Handler.on_text (echo (module Bot))
+  (* Make handler (Update.t -> unit function) from your dispatcher. *)
+  let handler = Tgbot.Dispatcher.handler_of (module Dispr (Bot)) in
+
+  (* Run an infinite loop to process incoming updates
+     using the long polling method. *)
+  Tgbot.Long_polling.run (module Bot) handler
