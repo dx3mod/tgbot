@@ -23,7 +23,7 @@
   dune
   yojson
   ppx_deriving
-  ppx_deriving_yojson
+  ppx_yojson_conv
   eio
   cohttp-eio
   tls-eio

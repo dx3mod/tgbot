@@ -14,15 +14,15 @@ module Make (E : Tg_bot_api.Env) = struct
   open Tg_bot_api.Types
 
   let get_me () =
-    Api.send_request ~max_size:1000 ~decoder:User.of_yojson Api.Methods.get_me
+    Api.send_request ~max_size:1000 ~decoder:User.t_of_yojson Api.Methods.get_me
 
   let get_updates ?(max_size = 1_000_000) ?timeout ?offset () =
-    Api.send_request ~max_size ~decoder:Updates.of_yojson
+    Api.send_request ~max_size ~decoder:Updates.t_of_yojson
     @@ Api.Methods.get_updates ~timeout ~offset ()
 
   let send_message ~chat_id text =
     Api.send_request
       ~max_size:(1000 + String.length text)
-      ~decoder:Light_message.of_yojson
+      ~decoder:Light_message.t_of_yojson
     @@ Api.Methods.send_message ~chat_id ~text
 end

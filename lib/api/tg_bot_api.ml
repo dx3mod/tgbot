@@ -43,7 +43,7 @@ module Make (E : Env) = struct
       @raises Bad_response *)
   let send_request ~max_size ~decoder endpoint =
     Eio.Switch.run @@ fun sw ->
-    let response, body = Client.post ~sw E.client endpoint in
+    let response, body = Client.get ~sw E.client endpoint in
     match response.status with
     | `OK -> (
         let body = Eio.Buf_read.(parse_exn take_all) ~max_size body in

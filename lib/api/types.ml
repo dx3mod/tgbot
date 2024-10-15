@@ -1,3 +1,5 @@
+open Ppx_yojson_conv_lib.Yojson_conv
+
 module User = struct
   type t = {
     id : int;
@@ -14,18 +16,18 @@ module User = struct
     can_connect_to_business : bool; [@default false]
     has_main_web_app : bool; [@default false]
   }
-  [@@deriving of_yojson, show]
+  [@@deriving of_yojson, show] [@@yojson.allow_extra_fields]
 end
 
 module Chat = struct
   type kind = Private | Group | SuperGroup | Channel [@@deriving show]
 
-  let kind_of_yojson = function
-    | `String "private" -> Ok Private
-    | `String "group" -> Ok Group
-    | `String "supergroup" -> Ok SuperGroup
-    | `String "channel" -> Ok Channel
-    | _ -> Error "Types.Chat.kind"
+  let kind_of_yojson : Yojson.Safe.t -> kind = function
+    | `String "private" -> Private
+    | `String "group" -> Group
+    | `String "supergroup" -> SuperGroup
+    | `String "channel" -> Channel
+    | _ -> failwith "Types.Chat.kind"
 
   type t = {
     id : int;
@@ -36,11 +38,12 @@ module Chat = struct
     last_name : string option; [@default None]
     all_members_are_administrators : bool; [@default false]
   }
-  [@@deriving of_yojson, show]
+  [@@deriving of_yojson, show] [@@yojson.allow_extra_fields]
 end
 
 module Location = struct
-  type t = { longitude : float; latitude : float } [@@deriving of_yojson, show]
+  type t = { longitude : float; latitude : float }
+  [@@deriving of_yojson, show] [@@yojson.allow_extra_fields]
 end
 
 module Message = struct
@@ -55,13 +58,13 @@ module Message = struct
     text : string; [@default ""]
     caption : string option; [@default None]
   }
-  [@@deriving of_yojson { strict = false }, show]
+  [@@deriving of_yojson, show] [@@yojson.allow_extra_fields]
   (* TODO: implement all fields for message type  *)
 end
 
 module Light_message = struct
   type t = { message_id : int; date : int }
-  [@@deriving of_yojson { strict = false }, show]
+  [@@deriving of_yojson, show] [@@yojson.allow_extra_fields]
 end
 
 module InlineQuery = struct
@@ -72,7 +75,7 @@ module InlineQuery = struct
     query : string;
     offset : string;
   }
-  [@@deriving of_yojson, show]
+  [@@deriving of_yojson, show] [@@yojson.allow_extra_fields]
 end
 
 module ChosenInlineResult = struct
@@ -83,7 +86,7 @@ module ChosenInlineResult = struct
     inline_message_id : string option; [@default None]
     query : string;
   }
-  [@@deriving of_yojson, show]
+  [@@deriving of_yojson, show] [@@yojson.allow_extra_fields]
 end
 
 module CallbackQuery = struct
@@ -94,7 +97,7 @@ module CallbackQuery = struct
     inline_message_id : string option; [@default None]
     data : string;
   }
-  [@@deriving of_yojson, show]
+  [@@deriving of_yojson, show] [@@yojson.allow_extra_fields]
 end
 
 module Update = struct
@@ -105,32 +108,31 @@ module Update = struct
     chosen_inline_result : ChosenInlineResult.t option; [@default None]
     callback_query : CallbackQuery.t option; [@default None]
   }
-  [@@deriving of_yojson, show]
+  [@@deriving of_yojson, show] [@@yojson.allow_extra_fields]
 
-  and t = { update_id : int; value : value }
-
-  and value =
+  type value =
     | Message of Message.t
     | InlineQuery of InlineQuery.t
     | ChosenInlineResult of ChosenInlineResult.t
     | CallbackQuery of CallbackQuery.t
+  [@@deriving show]
 
-  let of_yojson json =
-    Result.map
-      (fun raw ->
-        let value =
-          match raw with
-          | { message = Some message; _ } -> Message message
-          | { inline_query = Some inline_query; _ } -> InlineQuery inline_query
-          | { chosen_inline_result = Some chosen_inline_result; _ } ->
-              ChosenInlineResult chosen_inline_result
-          | { callback_query = Some callback_query; _ } ->
-              CallbackQuery callback_query
-          | _ -> failwith "invalid Update.raw state"
-        in
+  let value_of_raw raw =
+    match raw with
+    | { message = Some message; _ } -> Message message
+    | { inline_query = Some inline_query; _ } -> InlineQuery inline_query
+    | { chosen_inline_result = Some chosen_inline_result; _ } ->
+        ChosenInlineResult chosen_inline_result
+    | { callback_query = Some callback_query; _ } ->
+        CallbackQuery callback_query
+    | _ -> failwith "invalid Update.raw state"
 
-        { update_id = raw.update_id; value })
-      (raw_of_yojson json)
+  type t = { update_id : int; value : value } [@@deriving show]
+
+  let t_of_yojson json =
+    let raw = raw_of_yojson json in
+    let value = value_of_raw raw in
+    { update_id = raw.update_id; value }
 end
 
 module Updates = struct
