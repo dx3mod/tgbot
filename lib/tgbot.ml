@@ -2,6 +2,7 @@ module Api = Tg_bot_api
 module Bot = Bot
 module Long_polling = Long_polling
 module Dispatcher = Dispatcher
+module Utils = Utils
 
 let make_env ~token ~net =
   let authenticator =

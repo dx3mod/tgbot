@@ -21,4 +21,4 @@ let () =
 
   (* Run an infinite loop to process incoming updates
      using the long polling method. *)
-  Tgbot.Long_polling.run (module Bot) handler
+  Tgbot.Long_polling.run ~catch:Tgbot.Utils.log_exn (module Bot) handler
