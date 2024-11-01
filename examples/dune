@@ -1,3 +1,5 @@
 (executables
- (names getme)
- (libraries tgbot))
+ (names getme getupdates)
+ (libraries tgbot)
+ (preprocess
+  (pps lwt_ppx)))
