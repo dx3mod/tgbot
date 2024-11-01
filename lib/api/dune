@@ -1,6 +1,6 @@
 (library
- (name tg_bot_api)
- (package tgbot)
- (libraries yojson eio cohttp-eio)
+ (name tgbot_api)
+ (public_name tgbot-api)
+ (libraries yojson)
  (preprocess
   (pps ppx_yojson_conv ppx_deriving.show)))

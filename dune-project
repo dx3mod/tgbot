@@ -15,19 +15,10 @@
 
 (package
  (name tgbot)
- (synopsis "Telegram Bot framework")
- (description "A modern framework for Telegram Bot API")
- (depends
-  (ocaml
-   (>= 5.0))
-  dune
-  yojson
-  ppx_deriving
-  ppx_yojson_conv
-  eio
-  cohttp-eio
-  tls-eio
-  ca-certs
-  mirage-crypto-rng-eio)
- (tags
-  (telegram network)))
+ (synopsis "Telegram Bot Framework")
+ (depends ocaml dune tgbot-api))
+
+(package
+ (name tgbot-api)
+ (synopsis "Telegram Bot API types definitions")
+ (depends ocaml dune))

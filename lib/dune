@@ -1,3 +1,5 @@
 (library
  (public_name tgbot)
- (libraries tg_bot_api eio tls-eio ca-certs mirage-crypto-rng-eio))
+ (libraries tgbot-api lwt)
+ (preprocess
+  (pps lwt_ppx)))
