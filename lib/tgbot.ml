@@ -2,6 +2,7 @@ module Bot = Bot
 module Long_polling = Long_polling
 module Dispatcher = Dispatcher
 module Client = Client
+module Logger = Logger
 
 module type Dispr_with_bot_depend = functor (_ : Bot.S) -> Dispatcher.S
 
