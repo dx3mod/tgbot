@@ -10,6 +10,7 @@ depends: [
   "ocaml"
   "dune" {>= "3.16"}
   "tgbot-api"
+  "cohttp-lwt-unix"
   "odoc" {with-doc}
 ]
 build: [

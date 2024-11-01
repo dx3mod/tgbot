@@ -1,6 +1,6 @@
 (library
  (name tgbot_api)
  (public_name tgbot-api)
- (libraries yojson)
+ (libraries yojson uri)
  (preprocess
   (pps ppx_yojson_conv ppx_deriving.show)))

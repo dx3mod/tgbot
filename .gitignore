@@ -1,3 +1,9 @@
-_build
-.vscode
-demo
+# builds
+_build/
+_opam/
+
+# ideas
+.vscode/
+
+# misc
+demo/

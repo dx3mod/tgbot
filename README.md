@@ -1,6 +1,6 @@
 # TgBot
 
-A modern framework for [Telegram Bot API](https://core.telegram.org/bots/api) written OCaml.
+A framework for [Telegram Bot API](https://core.telegram.org/bots/api) written OCaml.
 
 ## Contribution
 

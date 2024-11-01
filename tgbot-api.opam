@@ -9,6 +9,9 @@ bug-reports: "https://github.com/dx3mod/tgbot/issues"
 depends: [
   "ocaml"
   "dune" {>= "3.16"}
+  "ppx_yojson_conv"
+  "ppx_deriving"
+  "lwt_ppx"
   "odoc" {with-doc}
 ]
 build: [

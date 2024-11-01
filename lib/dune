@@ -1,5 +1,5 @@
 (library
  (public_name tgbot)
- (libraries tgbot-api lwt)
+ (libraries tgbot-api lwt cohttp-lwt-unix)
  (preprocess
   (pps lwt_ppx)))

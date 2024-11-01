@@ -16,9 +16,9 @@
 (package
  (name tgbot)
  (synopsis "Telegram Bot Framework")
- (depends ocaml dune tgbot-api))
+ (depends ocaml dune tgbot-api cohttp-lwt-unix))
 
 (package
  (name tgbot-api)
  (synopsis "Telegram Bot API types definitions")
- (depends ocaml dune))
+ (depends ocaml dune ppx_yojson_conv ppx_deriving lwt_ppx))
