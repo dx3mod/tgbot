@@ -17,15 +17,15 @@ $ opam pin https://github.com/dx3mod/tgbot.git
 (* Your incoming updates dispatcher. *)
 module Dispr (Bot : Tgbot.Bot.S) = struct
   open Tgbot_api.Types
+  open Lwt.Infix
 
   (* Incoming message handler. *)
   let on_message (message : Message.t) =
-    Bot.send_message ~chat_id:message.chat.id message.text |> Lwt.ignore_result;
-    Lwt.return_unit
+    Bot.send_message ~chat_id:message.chat.id message.text >|= ignore
 end
 
-let () = 
-  Lwt_main.run @@ 
+let () =
+  Lwt_main.run @@
   let token = "YOUR TOKEN" in
   Tgbot.run_long_polling ~token (module Dispr)
 ```
