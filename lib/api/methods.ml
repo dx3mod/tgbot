@@ -15,7 +15,7 @@ struct
 
   let get_me = make_method "getMe"
 
-  let get_updates ~offset ~timeout =
+  let get_updates ?offset ?timeout () =
     make_method "getUpdates"
     |> query_opt "offset" (Option.map string_of_int offset)
     |> query_opt "timeout" (Option.map string_of_int timeout)

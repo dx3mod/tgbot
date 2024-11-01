@@ -1,9 +1,13 @@
-let run ?(timeout = 600) (module B : Bot.S) callback =
+let run ?(timeout = 600) ?catch (module B : Bot.S) callback =
   let offset = ref 0 in
+
+  let catch = Option.value catch ~default:raise in
 
   let handle_update (update : Tgbot_api.Types.Update.t) =
     offset := succ update.update_id;
-    callback update.value
+    Lwt.catch (fun () -> callback update.value) catch
+    (* try%lwt callback update.value with _ -> Lwt_io.printl "something wrong" *)
+    (* Lwt.catch (fun () -> Lwt.protected callback update.value) catch *)
   in
 
   while%lwt true do
