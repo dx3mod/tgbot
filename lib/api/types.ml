@@ -65,6 +65,8 @@ end
 module Light_message = struct
   type t = { message_id : int; date : int }
   [@@deriving of_yojson, show] [@@yojson.allow_extra_fields]
+
+  type ts = t list [@@deriving of_yojson, show]
 end
 
 module InlineQuery = struct

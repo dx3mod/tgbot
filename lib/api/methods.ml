@@ -1,3 +1,12 @@
+type photo = [ `Url of string ]
+
+module Media = struct
+  type t = Photo of photo
+
+  let to_json_string = function
+    | Photo (`Url url) -> Printf.sprintf {|{"type":"photo","media":"%s"}|} url
+end
+
 module Make (Args : sig
   val token : string
 end) =
@@ -23,4 +32,27 @@ struct
   let send_message ~chat_id ~text =
     make_method "sendMessage"
       ~query:[ ("chat_id", string_of_int chat_id); ("text", text) ]
+
+  let send_photo ~chat_id = function
+    | `Url url ->
+        make_method "sendPhoto"
+          ~query:[ ("chat_id", string_of_int chat_id); ("photo", url) ]
+
+  let send_media_group ~chat_id medias =
+    let objects = List.map Media.to_json_string medias |> String.concat "," in
+    make_method "sendMediaGroup"
+      ~query:
+        [
+          ("chat_id", string_of_int chat_id);
+          ("media", Printf.sprintf "[%s]" objects);
+        ]
+
+  let edit_message_text ~chat_id ~message_id ~text =
+    make_method "editMessageText"
+      ~query:
+        [
+          ("chat_id", string_of_int chat_id);
+          ("message_id", string_of_int message_id);
+          ("text", text);
+        ]
 end
