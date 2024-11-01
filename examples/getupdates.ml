@@ -7,4 +7,5 @@ let () =
   @@ Tgbot.Long_polling.run
        (module Bot)
        (fun update ->
-         Lwt_fmt.printf "Incoming update: %a\n" Tgbot_api.Types.Update.pp update)
+         Lwt_fmt.printf "Incoming update: %a\n" Tgbot_api.Types.Update.pp_value
+           update)

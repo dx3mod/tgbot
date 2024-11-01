@@ -3,7 +3,7 @@ let run ?(timeout = 600) (module B : Bot.S) callback =
 
   let handle_update (update : Tgbot_api.Types.Update.t) =
     offset := succ update.update_id;
-    callback update
+    callback update.value
   in
 
   while%lwt true do
