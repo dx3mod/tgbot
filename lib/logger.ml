@@ -1,6 +1,6 @@
 open Tgbot_api.Types
 
-module Dev_log = struct
+module Dev = struct
   let trigger = function
     | Update.Message message ->
         Lwt_fmt.printf "Message %a\n\n" Message.pp message

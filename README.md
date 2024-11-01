@@ -23,8 +23,8 @@ module Dispr (Bot : Tgbot.Bot.S) = struct
   open Tgbot_api.Types
   open Lwt.Infix
 
-  include Tgbot.Dispatcher.Defaults
-  include Tgbot.Logger.Dev_log
+  include Tgbot.Dispatcher.Defaults (* plugs *)
+  include Tgbot.Logger.Dev (* log incoming messages *)
 
   (* Incoming message handler. *)
   let on_message (message : Message.t) =
