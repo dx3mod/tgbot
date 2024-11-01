@@ -1,5 +1,5 @@
 (executables
- (names getme getupdates echobot)
+ (names getme getupdates echobot lowlevel_echobot)
  (libraries tgbot)
  (preprocess
   (pps lwt_ppx)))
