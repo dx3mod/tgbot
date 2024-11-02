@@ -7,6 +7,9 @@ module type S = sig
   val send_message : chat_id:int -> string -> Light_message.t Lwt.t
   val send_photo : chat_id:int -> photo -> Light_message.t Lwt.t
   val send_media_group : chat_id:int -> Media.t list -> Light_message.ts Lwt.t
+
+  val edit_message_text :
+    chat_id:int -> message_id:int -> string -> Light_message.t Lwt.t
 end
 
 module Make (Args : sig
