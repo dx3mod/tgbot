@@ -3,8 +3,8 @@ exception Bad_response of Tgbot_api.Response.ok_false
 let () =
   Printexc.register_printer (function
     | Bad_response { code; description } ->
-        Printf.sprintf "Tgbot.Client.Bad_response(code: %d, reason: \"%s\"" code
-          description
+        Printf.sprintf "Tgbot.Client.Bad_response(code: %d, reason: \"%s\")"
+          code description
         |> Option.some
     | _ -> None)
 
