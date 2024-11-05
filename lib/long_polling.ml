@@ -5,10 +5,16 @@ let run ?(timeout = 600) ?catch (module B : Bot.S) callback =
 
   let handle_update (update : Tgbot_api.Types.Update.t) =
     offset := succ update.update_id;
-    Lwt.catch (fun () -> callback update.value) catch
+    callback update.value
   in
 
   while%lwt true do
     let%lwt updates = B.get_updates ~offset:!offset ~timeout () in
-    Lwt_list.iter_p handle_update updates
+
+    (* Handle all incoming updates in one time (async). *)
+    List.iter
+      (fun update -> Lwt.dont_wait (fun () -> handle_update update) catch)
+      updates;
+
+    Lwt.return_unit
   done
