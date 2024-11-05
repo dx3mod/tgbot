@@ -2,7 +2,7 @@
 module Dispr (Bot : Tgbot.Bot.S) = struct
   open Tgbot_api.Types
   open Lwt.Infix
-  include Tgbot.Dispatcher.Defaults
+  include Tgbot.Dispatcher.Plugs
   include Tgbot.Logger.Dev
 
   (* Incoming message handler. *)

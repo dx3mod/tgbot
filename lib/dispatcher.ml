@@ -5,7 +5,7 @@ module type S = sig
   val trigger : Update.value -> unit Lwt.t
 end
 
-module Defaults : S = struct
+module Plugs : S = struct
   let on_message _ = Lwt.return_unit
   let trigger _ = Lwt.return_unit
 end
