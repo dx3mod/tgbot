@@ -39,6 +39,12 @@ let () =
 
 In the example we use high-level abstraction for handling incoming messages by [dispatcher pattern][dispr-pat]. You can find a more low-level version of the example [here](./examples/lowlevel_echobot.ml).
 
+See more examples in the [`example/`](./examples/) directory.
+
+## See also
+
+- [repostbot] &mdash; bot for forwarding user's posts from VK (by [vkashka]) to Telegram chat (by [tgbot]) 
+
 ## Contribution
 
 The is an open source project under the [MIT](./LICENSE) license. Contributions are very welcome!
@@ -52,3 +58,7 @@ Please be sure to read the [CONTRIBUTING.md](./CONTRIBUTING.md) before your firs
 [opam-pin]: https://opam.ocaml.org/doc/Usage.html#opam-pin
 
 [dispr-pat]: https://www.researchgate.net/figure/Event-dispatcher-pattern_fig14_242378736
+
+[repostbot]: https://github.com/dx3mod/repostbot
+[vkashka]: https://github.com/dx3mod/vkashka
+[tgbot]: https://github.com/dx3mod/tgbot
